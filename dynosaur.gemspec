@@ -8,11 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = Dynosaur::VERSION
   spec.authors       = ['Tom Collier']
   spec.email         = ['collier@apartmentlist.com']
-
-  spec.summary       = 'Run a rake task in a separate process (locally or on Heroku)'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.summary = 'Run a rake task in a separate process (locally or on Heroku)'
+
+  spec.files = `git ls-files -z`.split("\x0").reject { |f| f =~ %r{^(spec)/} }
+
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
