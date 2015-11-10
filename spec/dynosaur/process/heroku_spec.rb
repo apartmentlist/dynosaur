@@ -29,10 +29,10 @@ describe Dynosaur::Process::Heroku do
     end
 
     context 'when args are passed to the rake task' do
-      let(:args) { ['Hello, World', 1999] }
+      let(:args) { ['Hello World', 1999] }
 
       it 'adds the arguments to the rake task' do
-        command = 'rake fake:task["Hello, World",1999] --trace'
+        command = 'rake fake:task[Hello\\ World,1999] --trace'
         expect(dyno_accessor).to receive(:create)
           .with('dynosaur-test-app', command: command, attach: false)
           .and_return(api_response)

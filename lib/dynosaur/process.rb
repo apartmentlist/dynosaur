@@ -22,7 +22,7 @@ module Dynosaur
 
     def rake_command
       formatted_args = args.map do |arg|
-        arg.respond_to?(:shellescape) ? arg.shellescape : arg
+        arg.is_a?(String) ? arg.shellescape : arg
       end.join(',')
       task_with_args = args.empty? ? task : "#{task}[#{formatted_args}]"
       "rake #{task_with_args} --trace"

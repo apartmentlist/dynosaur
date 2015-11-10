@@ -26,10 +26,10 @@ describe Dynosaur::Process::Local do
     end
 
     context 'when args are passed to the rake task' do
-      let(:args) { ['Hello, World', 1999] }
+      let(:args) { ['Hello World', 1999] }
 
       it 'adds the arguments to the rake task' do
-        command = 'rake fake:task["Hello, World",1999] --trace'
+        command = 'rake fake:task[Hello\\ World,1999] --trace'
         expect(Process).to receive(:spawn).with(command).and_return(38)
         subject.start
       end
