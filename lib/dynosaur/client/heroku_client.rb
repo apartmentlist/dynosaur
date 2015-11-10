@@ -1,5 +1,6 @@
 require 'platform-api'
 
+# A wrapper for the Heroku Platform API gem.
 module Dynosaur
   module Client
     module HerokuClient
@@ -22,7 +23,6 @@ module Dynosaur
       def self.api_key
         config.api_key || fail('api_key must be set in the config')
       end
-      private_class_method :api_key
 
       private
 

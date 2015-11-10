@@ -1,8 +1,9 @@
 module Dynosaur
   class Process
-    def initialize(task:, args: [])
+    def initialize(task:, args: [], opts: {})
       @task = task
       @args = args
+      after_initialize(opts)
     end
 
     def start
@@ -12,6 +13,10 @@ module Dynosaur
     private
 
     attr_reader :args, :task
+
+    def after_initialize(opts)
+      # Do nothing so subclasses don't have to override if they want a no-op
+    end
 
     def rake_command
       formatted_args = args.map(&:inspect).join(',')
