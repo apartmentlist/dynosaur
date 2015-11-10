@@ -1,3 +1,5 @@
+require 'shellwords'
+
 module Dynosaur
   class Process
     def initialize(task:, args: [], opts: {})
@@ -19,7 +21,9 @@ module Dynosaur
     end
 
     def rake_command
-      formatted_args = args.map(&:inspect).join(',')
+      formatted_args = args.map do |arg|
+        arg.respond_to?(:shellescape) ? arg.shellescape : arg
+      end.join(',')
       task_with_args = args.empty? ? task : "#{task}[#{formatted_args}]"
       "rake #{task_with_args} --trace"
     end

@@ -8,17 +8,17 @@ module Dynosaur
     class Heroku < Process
       # Valid dyno sizes under Heroku's new pricing model
       module Size
-        PERFORMANCE_M = 'performance-m'.freeze
-        PERFORMANCE_L = 'performance-l'.freeze
         STANDARD_1X = 'standard-1X'.freeze
         STANDARD_2X = 'standard-2X'.freeze
+        PERFORMANCE_M = 'performance-m'.freeze
+        PERFORMANCE_L = 'performance-l'.freeze
       end
 
       # Valid dyno sizes under Heroku's old pricing model
       module DeprecatedSize
-        PERFORMANCE = 'PX'.freeze
         STANDARD_1X = '1X'.freeze
         STANDARD_2X = '2X'.freeze
+        PERFORMANCE = 'PX'.freeze
       end
 
       def start
