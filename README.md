@@ -1,8 +1,6 @@
 # Dynosaur
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dynosaur`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Run a rake task in a separate process (locally or on Heroku)
 
 ## Installation
 
@@ -22,7 +20,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Dynosaur::Client::HerokuClient.configure do |config|
+  config.app_name = '<Heroku app name>'
+  config.api_key = '<Heroku API key>'
+end
+
+dyno = Dynosaur::Process::Heroku.new(task: 'session:destroy', args: [2500])
+dyno.start
+# => run.9876
+
+local_process = Dynosaur::Process::Local.new(task: 'session:destroy', args: [2500])
+local_process.start
+# => 48345
+```
+
 
 ## Development
 
