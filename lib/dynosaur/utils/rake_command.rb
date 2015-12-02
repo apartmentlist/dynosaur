@@ -38,7 +38,7 @@ module Dynosaur
       end
 
       def ==(other)
-        task == other.task && args == other.args
+        task == other.task && args.map(&:to_s) == other.args.map(&:to_s)
       end
     end
   end

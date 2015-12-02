@@ -6,18 +6,17 @@ module Dynosaur
         # @return [Array] Object instances, which respond to #command, for all
         #   locally running processes returned by the ps command
         def structured_ps
-          ps_array = ps.split("\n").map(&:split)
-          keys = ps_array.shift
-          command_index = keys.find_index { |key| key == 'CMD' }
-          ps_array.map do |values|
-            Struct.new(:command).new(values[command_index])
+          ps_array = command_ps.split("\n").map(&:strip)
+          ps_array.shift # Remove the header row
+          ps_array.map do |command|
+            Struct.new(:command).new(command)
           end
         end
 
         private
 
-        def ps
-          `ps`
+        def command_ps
+          `ps -o command`
         end
       end
     end

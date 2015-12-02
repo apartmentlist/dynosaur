@@ -106,4 +106,16 @@ describe Dynosaur::Utils::RakeCommand do
       end
     end
   end
+
+  describe '==' do
+    context 'when one has a String arg and the other a Fixnum' do
+      subject { Dynosaur::Utils::RakeCommand.new(task: 'fake:task', args: [10]) }
+
+      let(:other) { Dynosaur::Utils::RakeCommand.new(task: 'fake:task', args: ['10']) }
+
+      it 'returns true' do
+        expect(subject).to eq(other)
+      end
+    end
+  end
 end
