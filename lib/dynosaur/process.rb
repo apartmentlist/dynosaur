@@ -8,7 +8,7 @@ module Dynosaur
     end
 
     def running?
-      klass = self.class.const_get('Finder')
+      klass = self.class::Finder
       finder = klass.new(rake_command: rake_command)
       finder.exists?
     end

@@ -108,13 +108,57 @@ describe Dynosaur::Utils::RakeCommand do
   end
 
   describe '==' do
-    context 'when one has a String arg and the other a Fixnum' do
-      subject { Dynosaur::Utils::RakeCommand.new(task: 'fake:task', args: [10]) }
+    subject do
+      Dynosaur::Utils::RakeCommand.new(task: subject_task, args: subject_args)
+    end
 
-      let(:other) { Dynosaur::Utils::RakeCommand.new(task: 'fake:task', args: ['10']) }
+    let(:other) do
+      Dynosaur::Utils::RakeCommand.new(task: other_task, args: other_args)
+    end
 
-      it 'returns true' do
-        expect(subject).to eq(other)
+    let(:subject_task) { 'fake:task' }
+    let(:other_task) { subject_task }
+    let(:subject_args) { [] }
+    let(:other_args) { subject_args }
+
+    context 'when both task names are the same' do
+      context 'and neither have args' do
+        it 'returns true' do
+          expect(subject).to eq(other)
+        end
+      end
+
+      context 'and one has no args but the other does' do
+        let(:other_args) { ['chocolate'] }
+
+        it 'returns false' do
+          expect(subject).to_not eq(other)
+        end
+      end
+
+      context 'and both have the same args' do
+        let(:subject_args) { ['chocolate'] }
+
+        it 'returns true' do
+          expect(subject).to eq(other)
+        end
+      end
+
+      context 'and have type args with the same string representation' do
+        let(:subject_args) { [10] }
+        let(:other_args) { ['10'] }
+
+        it 'returns true' do
+          expect(subject).to eq(other)
+        end
+      end
+    end
+
+    context 'with different tasks' do
+      let(:other_task) { 'fake:task:subtask' }
+
+      it 'returns false' do
+        expect(subject).to_not eq(other)
       end
     end
   end

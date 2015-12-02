@@ -45,7 +45,7 @@ describe Dynosaur::Process::Heroku::Finder do
         end
       end
 
-      context 'and it is running a namespaed task' do
+      context 'and it is running a namespaced task' do
         let(:dynos) do
           [{ 'type' => 'run', 'command' => 'bundle exec rake fake:task:bar' }]
         end
