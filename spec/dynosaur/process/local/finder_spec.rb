@@ -2,12 +2,11 @@ describe Dynosaur::Process::Local::Finder do
   subject { Dynosaur::Process::Local::Finder.new(rake_command: rake_command) }
 
   before do
-    allow(Dynosaur::Utils::OS).to receive(:structured_ps)
-      .and_return(processes)
+    allow(Sys::ProcTable).to receive(:ps).and_return(processes)
   end
 
   describe '#exists?' do
-    let(:processes) { [Struct.new(:command).new(running_command)] }
+    let(:processes) { [Struct.new(:cmdline).new(running_command)] }
 
     context 'when the command has no args' do
       let(:rake_command) { Dynosaur::Utils::RakeCommand.new(task: 'fake:task') }

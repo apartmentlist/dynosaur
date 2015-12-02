@@ -1,3 +1,5 @@
+require 'sys/proctable'
+
 # Detects if a running process is currently executing the rake command
 module Dynosaur
   class Process
@@ -8,9 +10,9 @@ module Dynosaur
         end
 
         def exists?
-          Utils::OS.structured_ps.any? do |process|
-            Utils::RakeCommand.valid?(process.command) &&
-              Utils::RakeCommand.parse(process.command) == rake_command
+          Sys::ProcTable.ps.map(&:cmdline).any? do |command|
+            Utils::RakeCommand.valid?(command) &&
+              Utils::RakeCommand.parse(command) == rake_command
           end
         end
 
