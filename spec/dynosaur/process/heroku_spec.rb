@@ -1,4 +1,24 @@
 describe Dynosaur::Process::Heroku do
+  describe '#running?' do
+    subject { Dynosaur::Process::Heroku.new(task: 'fake:task', args: %w[foo bar]) }
+
+    let(:response) { [true, false].sample }
+    let(:finder) do
+      instance_double(Dynosaur::Process::Heroku::Finder, exists?: response)
+    end
+
+    before do
+      rake_command =
+        Dynosaur::Utils::RakeCommand.new(task: 'fake:task', args: %w[foo bar])
+      allow(Dynosaur::Process::Heroku::Finder).to receive(:new)
+        .with(rake_command: rake_command).and_return(finder)
+    end
+
+    it 'returns the value from Finder#exists?' do
+      expect(subject.running?).to eq(finder.exists?)
+    end
+  end
+
   describe '#start' do
     subject { Dynosaur::Process::Heroku.new(task: task, args: args, opts: opts) }
 

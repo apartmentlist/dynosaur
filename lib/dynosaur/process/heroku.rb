@@ -1,7 +1,5 @@
 require 'dynosaur/client/heroku_client'
 
-require_relative '../process'
-
 # Start a detached rake task on a one-off dyno
 module Dynosaur
   class Process
@@ -23,10 +21,10 @@ module Dynosaur
 
       def start
         app_name = Dynosaur::Client::HerokuClient.app_name
-        dyno_accessor = Dynosaur::Client::HerokuClient.client.dyno
-        create_opts = { command: rake_command, attach: false }
+        client = Dynosaur::Client::HerokuClient.client
+        create_opts = { command: rake_command.to_s, attach: false }
         create_opts[:size] = size if size
-        response = dyno_accessor.create(app_name, create_opts)
+        response = client.dyno.create(app_name, create_opts)
         response['name']
       end
 

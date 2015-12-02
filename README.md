@@ -35,6 +35,13 @@ local_process.start
 # => 48345
 ```
 
+You can also check to see if a similar rake task is already running before starting
+the task (e.g. if you want at most one instance of that task running concurrently)
+
+```ruby
+dyno = Dynosaur::Process::Heroku.new(task: 'session:destroy', args: [2500])
+dyno.start unless dyno.running?
+```
 
 ## Development
 
