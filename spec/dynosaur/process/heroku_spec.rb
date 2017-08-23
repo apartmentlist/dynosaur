@@ -71,5 +71,17 @@ describe Dynosaur::Process::Heroku do
         subject.start
       end
     end
+
+    context 'when attach is specified' do
+      let(:opts) { { attach: true } }
+
+      it 'includes the attach setting' do
+        command = 'rake fake:task --trace'
+        expect(dyno_accessor).to receive(:create)
+          .with('dynosaur-test-app', command: command, attach: true)
+          .and_return(api_response)
+        subject.start
+      end
+    end
   end
 end
