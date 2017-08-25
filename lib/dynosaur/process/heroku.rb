@@ -23,6 +23,7 @@ module Dynosaur
         app_name = Dynosaur::Client::HerokuClient.app_name
         client = Dynosaur::Client::HerokuClient.client
         create_opts = { command: rake_command.to_s, attach: false }
+        create_opts[:attach] = attach if attach
         create_opts[:size] = size if size
         response = client.dyno.create(app_name, create_opts)
         response['name']
@@ -30,10 +31,11 @@ module Dynosaur
 
       private
 
-      attr_reader :size
+      attr_reader :size, :attach
 
       def after_initialize(opts)
         @size = opts[:size]
+        @attach = opts[:attach]
       end
     end
   end
