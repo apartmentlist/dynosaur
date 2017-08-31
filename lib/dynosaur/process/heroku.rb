@@ -4,12 +4,14 @@ require 'dynosaur/client/heroku_client'
 module Dynosaur
   class Process
     class Heroku < Process
-      # Valid dyno sizes under Heroku's new pricing model
       module Size
         STANDARD_1X = 'standard-1X'.freeze
         STANDARD_2X = 'standard-2X'.freeze
         PERFORMANCE_M = 'performance-m'.freeze
         PERFORMANCE_L = 'performance-l'.freeze
+        PRIVATE_S = 'Private-S'.freeze
+        PRIVATE_M = 'Private-M'.freeze
+        PRIVATE_L = 'Private-L'.freeze
       end
 
       # Valid dyno sizes under Heroku's old pricing model
