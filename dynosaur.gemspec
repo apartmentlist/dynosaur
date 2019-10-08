@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'platform-api', '~> 2.0.0'
-  spec.add_runtime_dependency 'sys-proctable', '~> 0.9'
+  spec.add_runtime_dependency 'sys-proctable', '>= 0.9', '< 2.0'
 
   spec.add_development_dependency 'bundler', '~> 1.8'
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
